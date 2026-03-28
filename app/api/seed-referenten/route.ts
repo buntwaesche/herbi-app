@@ -132,7 +132,7 @@ export async function GET() {
   results.push(`${berufsfelder!.length} Berufsfelder geladen`);
 
   // 2. Bestehende Zuordnungen löschen
-  await supabase.from('zuordnungen').delete().gte('referent_id', 0);
+  await supabase.from('zuordnung').delete().gte('referent_id', 0);
   results.push('Zuordnungen gelöscht');
 
   // 3. Bestehende Referenten löschen
@@ -171,7 +171,7 @@ export async function GET() {
 
     if (berufsfeld && bfMap[berufsfeld]) {
       const { error: zError } = await supabase
-        .from('zuordnungen')
+        .from('zuordnung')
         .insert({ referent_id: inserted.id, berufsfeld_id: bfMap[berufsfeld] });
 
       if (zError) {
