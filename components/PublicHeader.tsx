@@ -16,29 +16,43 @@ export default function PublicHeader() {
   const pathname = usePathname()
 
   return (
-    <header className="bg-herbi-blue text-white sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
-          Her<span className="text-herbi-orange">BI</span>
+    <header className="bg-white">
+      {/* Titel */}
+      <div className="text-center pt-6 pb-2">
+        <Link href="/">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-herbi-blue">
+            HerBI 2026
+          </h1>
+          <p className="text-gray-500 text-sm md:text-base mt-1">
+            17. Herforder Berufs&shy;informations&shy;tag
+          </p>
         </Link>
+      </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`text-sm font-medium transition ${
-                pathname === item.href ? 'text-herbi-orange' : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+      {/* Desktop Nav */}
+      <nav className="hidden md:flex items-center justify-center gap-8 py-4">
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`text-sm font-semibold uppercase tracking-wide transition ${
+              pathname === item.href
+                ? 'text-herbi-orange'
+                : 'text-gray-600 hover:text-herbi-blue'
+            }`}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
 
-        {/* Mobile Toggle */}
-        <button onClick={() => setOpen(!open)} className="md:hidden p-1" aria-label="Menü">
+      {/* Mobile Toggle */}
+      <div className="md:hidden flex justify-center pb-3">
+        <button
+          onClick={() => setOpen(!open)}
+          className="text-gray-600 p-2"
+          aria-label="Menü"
+        >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {open ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -51,13 +65,15 @@ export default function PublicHeader() {
 
       {/* Mobile Nav */}
       {open && (
-        <nav className="md:hidden border-t border-herbi-blue-light px-4 pb-4 space-y-1">
+        <nav className="md:hidden border-t border-gray-200 px-4 pb-4 space-y-1">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={`block py-2 text-sm ${pathname === item.href ? 'text-herbi-orange' : 'text-gray-300'}`}
+              className={`block py-2 text-sm font-semibold uppercase ${
+                pathname === item.href ? 'text-herbi-orange' : 'text-gray-600'
+              }`}
             >
               {item.label}
             </Link>
