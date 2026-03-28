@@ -50,7 +50,7 @@ export default function StartPage() {
             <div className="text-5xl mb-3 text-herbi-red">
               <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
             </div>
-            <h3 className="text-xl font-bold text-herbi-red">30.01.2027</h3>
+            <h3 className="text-xl font-bold text-herbi-red">05.02.2027</h3>
             <p className="text-sm text-gray-600 mt-2">
               Der Berufsinformationstag startet um 14:30 Uhr und endet um 17:30 Uhr
               (Tombola ca. 17:10 Uhr).
