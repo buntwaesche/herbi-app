@@ -21,10 +21,10 @@ export default function PublicHeader() {
       <div className="text-center pt-6 pb-2">
         <Link href="/">
           <h1 className="text-4xl md:text-5xl font-extrabold text-herbi-blue">
-            HerBI 2026
+            HerBI 2027
           </h1>
           <p className="text-gray-500 text-sm md:text-base mt-1">
-            17. Herforder Berufs&shy;informations&shy;tag
+            18. Herforder Berufs&shy;informations&shy;tag
           </p>
         </Link>
       </div>

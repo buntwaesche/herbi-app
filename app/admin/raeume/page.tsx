@@ -242,7 +242,7 @@ export default function RaeumePage() {
             <input
               value={archivName}
               onChange={(e) => setArchivName(e.target.value)}
-              placeholder="z.B. KMG 2026"
+              placeholder="z.B. KMG 2027"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-herbi-orange outline-none"
             />
           </div>
