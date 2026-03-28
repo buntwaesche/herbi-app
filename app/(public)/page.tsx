@@ -96,7 +96,7 @@ export default function StartPage() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-0">
           <div className="p-8 md:p-12 flex flex-col justify-center">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-              50 Berufsfelder in Live-Talks:
+              Über 50 Berufsfelder in Live-Talks:
             </h2>
             <h3 className="text-xl md:text-2xl font-normal text-gray-900 mt-1">
               Von Architektur bis Zahnmedizin

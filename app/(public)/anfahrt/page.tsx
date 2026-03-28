@@ -1,6 +1,10 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
 
 export default function AnfahrtPage() {
+  const [mapsConsent, setMapsConsent] = useState(false)
   return (
     <div>
       {/* Hero-Banner */}
@@ -100,21 +104,41 @@ export default function AnfahrtPage() {
           </div>
         </div>
 
-        {/* Google Maps Embed */}
+        {/* Google Maps – 2-Klick-Lösung */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-herbi-blue mb-4">Lageplan</h2>
-          <div className="rounded-xl overflow-hidden shadow-lg">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2445.0!2d8.6735!3d52.1145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47ba5bb0b97c3c21%3A0x4e0e2b7e38c83e0c!2sK%C3%B6nigin-Mathilde-Gymnasium!5e0!3m2!1sde!2sde!4v1"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Lageplan Königin-Mathilde-Gymnasium"
-            />
-          </div>
+          {mapsConsent ? (
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2445.0!2d8.6735!3d52.1145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47ba5bb0b97c3c21%3A0x4e0e2b7e38c83e0c!2sK%C3%B6nigin-Mathilde-Gymnasium!5e0!3m2!1sde!2sde!4v1"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Lageplan Königin-Mathilde-Gymnasium"
+              />
+            </div>
+          ) : (
+            <div className="rounded-xl overflow-hidden shadow-lg bg-gray-100 flex flex-col items-center justify-center p-8" style={{ minHeight: 400 }}>
+              <div className="text-5xl mb-4">📍</div>
+              <h3 className="text-lg font-bold text-herbi-blue mb-2">Königin-Mathilde-Gymnasium</h3>
+              <p className="text-gray-600 text-center mb-4">
+                Vlothoer Str. 1, 32049 Herford
+              </p>
+              <p className="text-sm text-gray-500 text-center mb-4 max-w-md">
+                Mit Klick auf den Button wird eine Verbindung zu Google Maps hergestellt.
+                Es gelten die <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer" className="text-herbi-blue underline">Datenschutzbestimmungen von Google</a>.
+              </p>
+              <button
+                onClick={() => setMapsConsent(true)}
+                className="bg-herbi-red text-white font-semibold px-8 py-3 hover:bg-red-800 transition"
+              >
+                Google Maps laden
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
