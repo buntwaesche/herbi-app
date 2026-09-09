@@ -12,52 +12,62 @@ export function generateBerufsfeldPDF(
   berufsfelder: Berufsfeld[],
   planung: PlanungMap
 ) {
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+  // Querformat A4 - wie beim Raumplan
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' })
 
   // Titel
   doc.setFontSize(18)
   doc.setTextColor(26, 26, 46)
-  doc.text('HerBI – Berufsfelder-Übersicht', 14, 15)
+  doc.text('HerBI \u2013 Berufsfelder-\u00dcbersicht', 14, 15)
 
   doc.setFontSize(9)
   doc.setTextColor(120, 120, 120)
   doc.text(`Stand: ${new Date().toLocaleDateString('de-DE')}`, 14, 21)
 
-  // Berufsfelder mit Raum- und Zeitslot-Zuweisungen sammeln
-  const entries: { name: string; raum: string; zeitslot: string }[] = []
+  // Pro Berufsfeld eine Zeile, pro Zeitslot eine Spalte mit dem Raum.
+  // Laeuft ein Berufsfeld im selben Block in mehreren Raeumen, stehen
+  // beide in der Zelle.
+  const raumLabel = (r: Raum) =>
+    r.geschoss ? `${r.bezeichnung} (${r.geschoss})` : r.bezeichnung
 
-  berufsfelder
+  const rows = berufsfelder
     .filter((bf) => bf.anzeige)
     .sort((a, b) => a.name.localeCompare(b.name, 'de'))
-    .forEach((bf) => {
-      let found = false
-      raeume.forEach((r) => {
-        zeitslots.forEach((z) => {
-          const bfId = planung.get(`${r.id}-${z.id}`)
-          if (bfId === bf.id) {
-            entries.push({
-              name: bf.name,
-              raum: `${r.bezeichnung} (${r.geschoss || ''})`,
-              zeitslot: z.label,
-            })
-            found = true
-          }
-        })
+    .map((bf) => {
+      const cells = zeitslots.map((z) => {
+        const raumNamen = raeume
+          .filter((r) => planung.get(`${r.id}-${z.id}`) === bf.id)
+          .map(raumLabel)
+        return raumNamen.length > 0 ? raumNamen.join(', ') : '\u2013'
       })
-      if (!found) {
-        entries.push({ name: bf.name, raum: '– nicht geplant –', zeitslot: '–' })
-      }
+      return [bf.name, ...cells]
     })
+
+  // Spaltenbreiten: Berufsfeld fest, Rest gleichmaessig auf die Bloecke
+  const pageWidth = doc.internal.pageSize.getWidth()
+  const margin = 14
+  const nameWidth = 70
+  const slotWidth =
+    Math.floor(((pageWidth - margin * 2 - nameWidth) / Math.max(zeitslots.length, 1)) * 100) / 100
+
+  const columnStyles: Record<number, { cellWidth: number; fontStyle?: 'bold' }> = {
+    0: { cellWidth: nameWidth, fontStyle: 'bold' },
+  }
+  zeitslots.forEach((_, i) => {
+    columnStyles[i + 1] = { cellWidth: slotWidth }
+  })
 
   autoTable(doc, {
     startY: 25,
-    head: [['Berufsfeld', 'Raum', 'Zeitslot']],
-    body: entries.map((e) => [e.name, e.raum, e.zeitslot]),
+    margin: { left: margin, right: margin },
+    head: [['Berufsfeld', ...zeitslots.map((z) => z.label)]],
+    body: rows,
     styles: {
       fontSize: 8,
       cellPadding: 3,
       lineColor: [200, 200, 200],
       lineWidth: 0.1,
+      overflow: 'linebreak',
     },
     headStyles: {
       fillColor: [26, 26, 46],
@@ -68,17 +78,12 @@ export function generateBerufsfeldPDF(
     alternateRowStyles: {
       fillColor: [248, 248, 248],
     },
-    columnStyles: {
-      0: { fontStyle: 'bold', cellWidth: 65 },
-      1: { cellWidth: 55 },
-      2: { cellWidth: 55 },
-    },
+    columnStyles,
     didParseCell(data) {
-      if (data.section === 'body' && data.column.index === 1) {
-        const value = data.cell.text.join('')
-        if (value.includes('nicht geplant')) {
+      // Freie Bloecke ausgrauen
+      if (data.section === 'body' && data.column.index >= 1) {
+        if (data.cell.text.join('') === '\u2013') {
           data.cell.styles.textColor = [180, 180, 180]
-          data.cell.styles.fontStyle = 'italic'
         }
       }
     },
