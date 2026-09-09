@@ -89,17 +89,17 @@ export default function ZuordnungPage() {
         </select>
       </div>
 
-      <div className="bg-white rounded-xl shadow overflow-x-auto">
+      <div className="bg-white rounded-xl shadow overflow-auto max-h-[75vh]">
         <table className="text-xs min-w-max">
           <thead>
             <tr>
-              <th className="sticky left-0 bg-white z-10 px-3 py-2 text-left font-medium text-gray-600 border-b min-w-[180px]">
+              <th className="sticky left-0 top-0 bg-white z-30 px-3 py-2 text-left font-medium text-gray-600 min-w-[180px] shadow-[1px_1px_0_0_#e5e7eb]">
                 Referent
               </th>
               {berufsfelder.map((bf) => (
                 <th
                   key={bf.id}
-                  className="px-1 py-2 align-bottom text-left font-medium text-gray-600 border-b h-[170px]"
+                  className="sticky top-0 z-20 bg-white px-1 py-2 align-bottom text-left font-medium text-gray-600 h-[170px] shadow-[0_1px_0_0_#e5e7eb]"
                   style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', minWidth: '32px', maxWidth: '32px' }}
                   title={bf.name}
                 >
@@ -112,8 +112,8 @@ export default function ZuordnungPage() {
           </thead>
           <tbody>
             {filteredReferenten.map((ref) => (
-              <tr key={ref.id} className="hover:bg-gray-50">
-                <td className="sticky left-0 bg-white z-10 px-3 py-1.5 border-b whitespace-nowrap">
+              <tr key={ref.id} className="group hover:bg-gray-50">
+                <td className="sticky left-0 z-10 bg-white group-hover:bg-gray-50 px-3 py-1.5 border-b whitespace-nowrap shadow-[1px_0_0_0_#e5e7eb]">
                   <div className="flex items-center gap-2">
                     <span className="font-medium">{ref.nachname}, {ref.vorname}</span>
                     <StatusBadge status={ref.status} />
