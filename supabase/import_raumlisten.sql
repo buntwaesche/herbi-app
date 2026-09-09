@@ -1,6 +1,20 @@
--- HerBI: historische Raumlisten als Archiv-Snapshots
--- Erzeugt aus den CSV-Exporten der Vorjahre.
+-- HerBI: Raumlisten als Archiv-Snapshots
 -- Idempotent: laeuft das Skript zweimal, entstehen keine Duplikate.
+
+-- ------------------------------------------------------------
+-- 1. Aktuelle Raumliste als "KMG-2025" sichern
+--    Kopiert alle aktiven Raeume (archiv_name IS NULL) ins Archiv.
+--    Entspricht dem Button "Archivieren" im Admin-Bereich.
+-- ------------------------------------------------------------
+DELETE FROM raeume WHERE archiv_name = 'KMG-2025';
+INSERT INTO raeume (bezeichnung, geschoss, bemerkung, verwendung, archiv_name)
+SELECT bezeichnung, geschoss, bemerkung, verwendung, 'KMG-2025'
+FROM raeume
+WHERE archiv_name IS NULL AND verwendung = true;
+
+-- ------------------------------------------------------------
+-- 2. Historische Listen aus den CSV-Exporten der Vorjahre
+-- ------------------------------------------------------------
 
 -- Friedrichs-Gymnasium 2021: 27 Raeume
 DELETE FROM raeume WHERE archiv_name = 'Friedrichs-Gymnasium 2021';
