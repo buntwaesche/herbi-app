@@ -90,7 +90,7 @@ export default function ZuordnungPage() {
       </div>
 
       <div className="bg-white rounded-xl shadow overflow-x-auto">
-        <table className="text-xs">
+        <table className="text-xs min-w-max">
           <thead>
             <tr>
               <th className="sticky left-0 bg-white z-10 px-3 py-2 text-left font-medium text-gray-600 border-b min-w-[180px]">
@@ -99,10 +99,11 @@ export default function ZuordnungPage() {
               {berufsfelder.map((bf) => (
                 <th
                   key={bf.id}
-                  className="px-1 py-2 text-center font-medium text-gray-600 border-b"
+                  className="px-1 py-2 align-bottom text-left font-medium text-gray-600 border-b h-[170px]"
                   style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', minWidth: '32px', maxWidth: '32px' }}
+                  title={bf.name}
                 >
-                  <span className="inline-block max-h-[120px] overflow-hidden text-ellipsis">
+                  <span className="block max-h-[150px] overflow-hidden whitespace-nowrap text-ellipsis">
                     {bf.name}
                   </span>
                 </th>

@@ -117,7 +117,7 @@ export default function PlanungPage() {
       )}
 
       <div className="bg-white rounded-xl shadow overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full min-w-max text-sm">
           <thead className="bg-gray-50">
             <tr>
               <th className="sticky left-0 bg-gray-50 z-10 px-4 py-3 text-left font-medium text-gray-600 min-w-[140px]">
