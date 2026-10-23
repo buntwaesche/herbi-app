@@ -18,7 +18,7 @@ export default function ImpressumPage() {
         <h2>Kontakt</h2>
         <p>
           E-Mail:{" "}
-          <a href="mailto:referenten@herbi.rocks">referenten@herbi.rocks</a>
+          <a href="mailto:info@buntwaesche.de">info@buntwaesche.de</a>
         </p>
 
         <h2>Copyright-Hinweis</h2>
