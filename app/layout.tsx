@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://herbi.rocks"),
   title: {
     default: "HerBI 2027 – 18. Herforder Berufsinformationstag",
     template: "%s | HerBI 2027",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "HerBI 2027 – 18. Herforder Berufsinformationstag",
     description: "Über 50 Berufsfelder in Live-Talks: Von Architektur bis Zahnmedizin. Am 05.02.2027 am Königin-Mathilde-Gymnasium Herford.",
-    url: "https://herbi-app.vercel.app",
+    url: "https://herbi.rocks",
     siteName: "HerBI",
     locale: "de_DE",
     type: "website",
