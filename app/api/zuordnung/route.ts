@@ -3,8 +3,8 @@ import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-function getSupabase() {
-  const cookieStore = cookies()
+async function getSupabase() {
+  const cookieStore = await cookies()
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -20,7 +20,7 @@ function getSupabase() {
 
 // Toggle Zuordnung: POST { referent_id, berufsfeld_id, checked }
 export async function POST(request: NextRequest) {
-  const supabase = getSupabase()
+  const supabase = await getSupabase()
 
   const { data: { session } } = await supabase.auth.getSession()
   if (!session) {
